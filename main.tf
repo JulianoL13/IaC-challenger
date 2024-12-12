@@ -31,13 +31,12 @@ resource "digitalocean_ssh_key" "httpsvkey" {
 
 resource "digitalocean_firewall" "korpfirewall" {
   name = "basic-rule"
-
   droplet_ids = [digitalocean_droplet.httpserver.id]
 
   inbound_rule {
     protocol         = "tcp"
     port_range       = "22"
-    source_addresses = ["192.168.1.0/24", "2002:1:2::/48"]
+    source_addresses = ["0.0.0.0/0", "::/0"]
   }
 
   inbound_rule {
@@ -71,6 +70,24 @@ resource "digitalocean_firewall" "korpfirewall" {
 
   outbound_rule {
     protocol              = "icmp"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "22"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "80"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "443"
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
 }
