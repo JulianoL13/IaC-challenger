@@ -1,0 +1,25 @@
+---
+- name: Create project dir
+  ansible.builtin.file:
+    path: /opt/http-service
+    state: directory
+    mode: "0755"
+
+- name: Set yaml config
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: /opt/http-service/docker-compose.yaml
+    owner: bin
+    mode: "0644"
+
+- name: Set nginx config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /opt/http-service/nginx.conf
+    owner: bin
+    mode: "0644"
+
+- name: Ensure containers are running with docker_compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/http-service/
+  register: output

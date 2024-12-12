@@ -1,0 +1,22 @@
+services:
+  http-korp:
+    image: laranjeirajuliano/goapp:4
+    container_name: http-korp
+    ports:
+      - "8080:8080"
+    networks:
+      - korp_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /opt/http-service/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - korp_network
+
+networks:  
+  korp_network:
+    driver: bridge

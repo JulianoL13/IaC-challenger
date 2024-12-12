@@ -1,0 +1,8 @@
+---
+- name: Init machine
+  hosts: all
+  remote_user: root
+  become: true
+  roles:
+    - docker
+    - http-app
