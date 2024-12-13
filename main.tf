@@ -10,6 +10,8 @@ variable "do_token" {}
 
 variable "ssh-path" {}
 
+variable "iptest"{}
+
 provider "digitalocean" {
   token = var.do_token
 }
@@ -22,6 +24,10 @@ resource "digitalocean_droplet" "httpserver" {
     ssh_keys = [digitalocean_ssh_key.httpsvkey.fingerprint]
 }
 
+resource "digitalocean_reserved_ip_assignment" "ipassing" {
+  ip_address = var.iptest  # Insira o IP reservado já existente
+  droplet_id = digitalocean_droplet.httpserver.id
+}
 
 resource "digitalocean_ssh_key" "httpsvkey" {
   name       = "httpsvkey-test"
