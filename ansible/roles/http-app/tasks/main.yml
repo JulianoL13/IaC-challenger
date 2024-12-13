@@ -19,6 +19,12 @@
     owner: bin
     mode: "0644"
 
+- name: Restart services
+  community.docker.docker_compose_v2:
+    project_src: /opt/http-service
+    state: restarted
+  register: output
+
 - name: Ensure containers are running with docker_compose
   community.docker.docker_compose_v2:
     project_src: /opt/http-service/

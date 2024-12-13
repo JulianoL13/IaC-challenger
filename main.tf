@@ -24,7 +24,7 @@ resource "digitalocean_droplet" "httpserver" {
 
 
 resource "digitalocean_ssh_key" "httpsvkey" {
-  name       = "httpsvkey-1"
+  name       = "httpsvkey-test"
   public_key = file(var.ssh-path)
 }
 
