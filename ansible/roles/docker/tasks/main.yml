@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name: ca-certificates, curl
     state: present
+    update_cache: true
 
 - name: Add key
   ansible.builtin.apt_key:

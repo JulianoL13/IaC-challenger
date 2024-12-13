@@ -1,6 +1,6 @@
 ---
 - name: Init machine
-  hosts: all
+  hosts: cloud
   remote_user: root
   become: true
   roles:
